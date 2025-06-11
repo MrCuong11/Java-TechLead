@@ -4,32 +4,31 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
+    public static String longestCommonSuffix(String s1, String s2) {
+        int len1 = s1.length();
+        int len2 = s2.length();
+        int i = len1 - 1;
+        int j = len2 - 1;
+        StringBuilder result = new StringBuilder();
+
+
+        while (i >= 0 && j >= 0 && s1.charAt(i) == s2.charAt(j)) {
+            result.insert(0, s1.charAt(i));
+            i--;
+            j--;
+        }
+
+        return result.toString();
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.print("String 1: ");
+        String s1 = scanner.nextLine();
+        System.out.print("String 2: ");
+        String s2 = scanner.nextLine();
 
-
-        System.out.print("How many words do you want to enter? ");
-        int count = scanner.nextInt();
-        scanner.nextLine();
-
-
-        String[] words = new String[count];
-
-
-        for (int i = 0; i < count; i++) {
-            System.out.print("Enter word " + (i + 1) + ": ");
-            words[i] = scanner.nextLine().trim();
-        }
-
-
-        String longestWord = words[0];
-        for (int i = 1; i < words.length; i++) {
-            if (words[i].length() > longestWord.length()) {
-                longestWord = words[i];
-            }
-        }
-
-        System.out.println("\nThe longest word is: \"" + longestWord + "\"");
-        scanner.close();
+        String lcs = longestCommonSuffix(s1, s2);
+        System.out.println("LSC: " + lcs);
     }
 }
