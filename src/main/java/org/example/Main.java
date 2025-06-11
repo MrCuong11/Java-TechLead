@@ -7,28 +7,34 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        System.out.print("How many strings do you want to enter? ");
+        int count = scanner.nextInt();
+        scanner.nextLine();
 
-        System.out.println("Enter a string: ");
-        String input = scanner.nextLine();
-
-
-        input = input.trim();
-
-        if (input.isEmpty()) {
-            System.out.println("The string is empty. Word count: 0");
+        if (count <= 0) {
+            System.out.println("Please enter a positive number!");
             scanner.close();
             return;
         }
 
 
-        // regex \\s is a regular expression that matches one or more whitespace characters
-        String[] words = input.split("\\s+");
-        int wordCount = words.length;
+        String[] strings = new String[count];
+        int stringsWithA = 0;
 
-        // Display results
-        System.out.println("Number of words: " + wordCount);
+        // Input strings and count those with 'a'
+        for (int i = 0; i < count; i++) {
+            System.out.print("Enter string " + (i + 1) + ": ");
+            strings[i] = scanner.nextLine();
 
-        // Close scanner
+            if (strings[i].toLowerCase().contains("a")) {
+                stringsWithA++;
+            }
+        }
+
+        System.out.println("Total strings entered: " + count);
+        System.out.println("Strings containing 'a': " + stringsWithA);
+
+
         scanner.close();
     }
 }
