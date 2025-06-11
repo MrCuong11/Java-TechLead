@@ -6,34 +6,34 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("How many numbers do you want to enter? ");
+        System.out.print("How many strings do you want to enter? ");
         int count = scanner.nextInt();
+        scanner.nextLine();
 
-        // Input validation
         if (count <= 0) {
             System.out.println("Please enter a positive number!");
             scanner.close();
             return;
         }
 
-        double[] numbers = new double[count];
+        String[] strings = new String[count];
 
-        // Input numbers
+
         for (int i = 0; i < count; i++) {
-            System.out.print("Enter number " + (i + 1) + ": ");
-            numbers[i] = scanner.nextDouble();
+            System.out.print("Enter string " + (i + 1) + ": ");
+            strings[i] = scanner.nextLine();
         }
 
-        // Find the largest number
-        double largest = numbers[0];
-        for (int i = 1; i < numbers.length; i++) {
-            if (numbers[i] > largest) {
-                largest = numbers[i];
+
+        String shortest = strings[0];
+        for (int i = 1; i < strings.length; i++) {
+            if (strings[i].length() < shortest.length()) {
+                shortest = strings[i];
             }
         }
 
-        System.out.println("\nThe largest number in the list is: " + largest);
-
+        // Display the result
+        System.out.println("\nThe shortest string is: \""  + shortest + "\"");
         scanner.close();
     }
 }
