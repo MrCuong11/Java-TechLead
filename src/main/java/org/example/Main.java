@@ -1,41 +1,39 @@
 package org.example;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
+    public static int count(int[] nums, int target) {
+        Set<Integer> seen = new HashSet<>();
+        Set<String> pairs = new HashSet<>();
+
+        for (int num : nums) {
+            int complement = target - num;
+
+            if (seen.contains(complement)) {
+                int a = Math.min(num, complement);
+                int b = Math.max(num, complement);
+                pairs.add(a + "," + b);
+            }
+
+            seen.add(num);
+        }
+
+        return pairs.size();
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("List 1: ");
-        int[] list1 = Arrays.stream(scanner.nextLine().split("\\s+"))
-                .mapToInt(Integer::parseInt)
-                .toArray();
+        // Nhập dãy số
+        System.out.print("Nhập các số nguyên: ");
+        String[] input = scanner.nextLine().split("\\s+");
+        int[] numbers = Arrays.stream(input).mapToInt(Integer::parseInt).toArray();
 
-        // Input second list
-        System.out.print("List 2: ");
-        int[] list2 = Arrays.stream(scanner.nextLine().split("\\s+"))
-                .mapToInt(Integer::parseInt)
-                .toArray();
+        // Nhập giá trị target
+        System.out.print("Nhập giá trị target: ");
+        int target = scanner.nextInt();
 
-        // Combine the two lists
-        int[] combined = new int[list1.length + list2.length];
-        System.arraycopy(list1, 0, combined, 0, list1.length);
-        System.arraycopy(list2, 0, combined, list1.length, list2.length);
-
-        // Sort the combined list
-        Arrays.sort(combined);
-
-
-        double median;
-        int n = combined.length;
-        if (n % 2 == 0) {
-            median = (combined[n / 2 - 1] + combined[n / 2]) / 2.0;
-        } else {
-            median = combined[n / 2];
-        }
-
-//        System.out.println("Combined sorted list: " + Arrays.toString(combined));
-        System.out.println("Median: " + median);
+        int result = count(numbers, target);
+        System.out.println("Số cặp phân biệt có tổng bằng " + target + ": " + result);
 
         scanner.close();
     }
