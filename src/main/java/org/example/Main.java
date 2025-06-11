@@ -1,14 +1,14 @@
 package org.example;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("How many strings do you want to enter? ");
+        System.out.print("How many numbers do you want to enter? ");
         int count = scanner.nextInt();
-        scanner.nextLine();
 
         if (count <= 0) {
             System.out.println("Please enter a positive number!");
@@ -16,24 +16,23 @@ public class Main {
             return;
         }
 
-        String[] strings = new String[count];
-
+        double[] numbers = new double[count];
 
         for (int i = 0; i < count; i++) {
-            System.out.print("Enter string " + (i + 1) + ": ");
-            strings[i] = scanner.nextLine();
+            System.out.print("Enter number " + (i + 1) + ": ");
+            numbers[i] = scanner.nextDouble();
         }
 
 
-        String shortest = strings[0];
-        for (int i = 1; i < strings.length; i++) {
-            if (strings[i].length() < shortest.length()) {
-                shortest = strings[i];
-            }
-        }
+        System.out.println("\nOriginal list: " + Arrays.toString(numbers));
 
-        // Display the result
-        System.out.println("\nThe shortest string is: \""  + shortest + "\"");
+
+        Arrays.sort(numbers);
+
+
+        System.out.println("Sorted: " + Arrays.toString(numbers));
+
+        // Close scanner
         scanner.close();
     }
 }
