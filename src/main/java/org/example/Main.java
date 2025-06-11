@@ -1,39 +1,41 @@
 package org.example;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("How many numbers do you want to enter? ");
-        int count = scanner.nextInt();
+        System.out.print("Nhập số lượng: ");
+        int n = scanner.nextInt();
 
 
-        int[] numbers = new int[count];
-
-        for (int i = 0; i < count; i++) {
-            System.out.print("Enter number " + (i + 1) + ": ");
-            numbers[i] = scanner.nextInt();
+        int[] arr = new int[n];
+        System.out.println("Nhập " + n + " số nguyên:");
+        for (int i = 0; i < n; i++) {
+            System.out.print("Nhập số thứ " + (i + 1) + ": ");
+            arr[i] = scanner.nextInt();
         }
 
-        System.out.println("\nOriginal list: " + Arrays.toString(numbers));
-
-        Arrays.sort(numbers);
-
-        int secondSmallest = numbers[0];
-        for (int i = 1; i < count; i++) {
-            if (numbers[i] > secondSmallest) {
-                secondSmallest = numbers[i];
-                break;
+        int max = arr[0];
+        int min = arr[0];
+        for (int i = 1; i < n; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+            if (arr[i] < min) {
+                min = arr[i];
             }
         }
 
 
-        System.out.println("The second smallest number is: " + secondSmallest);
+        int maxDiff = max - min;
 
-        // Close scanner
+
+        System.out.println("Hiệu lớn nhất là: " + maxDiff);
+        System.out.println("(Được tính từ " + max + " - " + min + ")");
+
+
         scanner.close();
     }
 }
