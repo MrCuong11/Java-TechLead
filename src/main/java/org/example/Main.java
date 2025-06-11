@@ -7,33 +7,29 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("How many numbers do you want to enter? ");
+
+        System.out.print("How many words do you want to enter? ");
         int count = scanner.nextInt();
+        scanner.nextLine();
 
 
-        int[] numbers = new int[count];
+        String[] words = new String[count];
+
 
         for (int i = 0; i < count; i++) {
-            System.out.print("Enter number " + (i + 1) + ": ");
-            numbers[i] = scanner.nextInt();
+            System.out.print("Enter word " + (i + 1) + ": ");
+            words[i] = scanner.nextLine().trim();
         }
 
-        System.out.println("\nOriginal list: " + Arrays.toString(numbers));
 
-        Arrays.sort(numbers);
-
-        int secondLargest = numbers[count - 1];
-        for (int i = count - 2; i >= 0; i--) {
-            if (numbers[i] < secondLargest) {
-                secondLargest = numbers[i];
-                break;
+        String longestWord = words[0];
+        for (int i = 1; i < words.length; i++) {
+            if (words[i].length() > longestWord.length()) {
+                longestWord = words[i];
             }
         }
 
-
-        System.out.println("The second largest number is: " + secondLargest);
-
-        // Close scanner
+        System.out.println("\nThe longest word is: \"" + longestWord + "\"");
         scanner.close();
     }
 }
