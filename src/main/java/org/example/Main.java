@@ -5,14 +5,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.print("Nhập một số: ");
 
-        System.out.print("Enter a string: ");
-
-        String userInput = scanner.nextLine();
-
-        int length = userInput.length();
-        System.out.println("The length of the string \"" + userInput + "\" is: " + length);
-
+        double number = scanner.nextDouble();
+        double square = number * number;
+        System.out.println("Bình phương của " + number + " là: " + square);
         scanner.close();
     }
 }
