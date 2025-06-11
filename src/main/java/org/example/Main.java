@@ -7,34 +7,33 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("How many strings do you want to enter? ");
+        System.out.print("How many numbers do you want to enter? ");
         int count = scanner.nextInt();
-        scanner.nextLine();
 
-        if (count <= 0) {
-            System.out.println("Please enter a positive number!");
-            scanner.close();
-            return;
+
+        int[] numbers = new int[count];
+
+        for (int i = 0; i < count; i++) {
+            System.out.print("Enter number " + (i + 1) + ": ");
+            numbers[i] = scanner.nextInt();
         }
 
+        System.out.println("\nOriginal list: " + Arrays.toString(numbers));
 
-        String[] strings = new String[count];
-        int stringsWithA = 0;
+        Arrays.sort(numbers);
 
-        // Input strings and count those with 'a'
-        for (int i = 0; i < count; i++) {
-            System.out.print("Enter string " + (i + 1) + ": ");
-            strings[i] = scanner.nextLine();
-
-            if (strings[i].toLowerCase().contains("a")) {
-                stringsWithA++;
+        int secondLargest = numbers[count - 1];
+        for (int i = count - 2; i >= 0; i--) {
+            if (numbers[i] < secondLargest) {
+                secondLargest = numbers[i];
+                break;
             }
         }
 
-        System.out.println("Total strings entered: " + count);
-        System.out.println("Strings containing 'a': " + stringsWithA);
 
+        System.out.println("The second largest number is: " + secondLargest);
 
+        // Close scanner
         scanner.close();
     }
 }
