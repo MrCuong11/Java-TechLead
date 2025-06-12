@@ -5,42 +5,27 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Nhập số chuỗi: ");
+        System.out.print("Nhập: ");
         int n = scanner.nextInt();
-        scanner.nextLine();
+        int[] arr = new int[n];
 
-        String[] strings = new String[n];
-        System.out.println("Nhập các chuỗi:");
+        System.out.println("Nhập các phần tử:");
         for (int i = 0; i < n; i++) {
-            strings[i] = scanner.nextLine();
+            arr[i] = scanner.nextInt();
         }
 
-        int result = longestCommonSubstring(strings);
-        System.out.println("Chuỗi con chung dài nhất: " + result);
+        int result = maxProductOfThree(arr);
+        System.out.println("Tích lớn nhất của 3 phần tử: " + result);
     }
 
-    public static int longestCommonSubstring(String[] strings) {
-        if (strings.length == 0) return 0;
+    public static int maxProductOfThree(int[] arr) {
+        Arrays.sort(arr);
 
-        String base = strings[0];
-        int maxLength = 0;
+        int n = arr.length;
+        int option1 = arr[n - 1] * arr[n - 2] * arr[n - 3];
+        // Tích của 2 số âm nhỏ nhất và số lớn nhất
+        int option2 = arr[0] * arr[1] * arr[n - 1];
 
-        for (int i = 0; i < base.length(); i++) {
-            for (int j = i + 1; j <= base.length(); j++) {
-                String sub = base.substring(i, j);
-                boolean isCommon = true;
-                for (int k = 1; k < strings.length; k++) {
-                    if (!strings[k].contains(sub)) {
-                        isCommon = false;
-                        break;
-                    }
-                }
-                if (isCommon) {
-                    maxLength = Math.max(maxLength, sub.length());
-                }
-            }
-        }
-
-        return maxLength;
+        return Math.max(option1, option2);
     }
 }
