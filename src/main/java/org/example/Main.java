@@ -5,27 +5,44 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Nhập: ");
-        int n = scanner.nextInt();
-        int[] arr = new int[n];
+        System.out.print("Nhập số chuỗi: ");
+        int n = Integer.parseInt(scanner.nextLine());
 
-        System.out.println("Nhập các phần tử:");
+        List<String> strings = new ArrayList<>();
+        System.out.println("Nhập các chuỗi:");
         for (int i = 0; i < n; i++) {
-            arr[i] = scanner.nextInt();
+            strings.add(scanner.nextLine());
         }
 
-        int result = maxProductOfThree(arr);
-        System.out.println("Tích lớn nhất của 3 phần tử: " + result);
+        // Integer.compare(x, y) trả về:
+        //
+        //-1 nếu x < y → x đứng trước
+        //
+        //1 nếu x > y → x đứng sau
+        strings.sort((a, b) -> {
+            int distinctA = countDistinctWords(a);
+            int distinctB = countDistinctWords(b);
+
+            if (distinctA != distinctB) {
+                return Integer.compare(distinctB, distinctA);
+            }
+
+            if (a.length() != b.length()) {
+                return Integer.compare(b.length(), a.length());
+            }
+
+            return a.compareTo(b);
+        });
+
+        System.out.println("Result:");
+        for (String s : strings) {
+            System.out.println(s);
+        }
     }
 
-    public static int maxProductOfThree(int[] arr) {
-        Arrays.sort(arr);
-
-        int n = arr.length;
-        int option1 = arr[n - 1] * arr[n - 2] * arr[n - 3];
-        // Tích của 2 số âm nhỏ nhất và số lớn nhất
-        int option2 = arr[0] * arr[1] * arr[n - 1];
-
-        return Math.max(option1, option2);
+    public static int countDistinctWords(String s) {
+        String[] words = s.toLowerCase().split("\\s+");
+        Set<String> unique = new HashSet<>(Arrays.asList(words));
+        return unique.size();
     }
 }
