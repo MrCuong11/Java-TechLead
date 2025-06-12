@@ -4,42 +4,53 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<String> danhSach = new ArrayList<>();
 
-        System.out.print("Nhập số chuỗi: ");
+        // Nhập số lượng phần tử
+        System.out.print("Nhập số lượng phần tử: ");
         int n = scanner.nextInt();
-        scanner.nextLine();
 
-        // Nhập các chuỗi
+        // Nhập mảng
+        int[] arr = new int[n];
+        System.out.println("Nhập các phần tử:");
         for (int i = 0; i < n; i++) {
-            System.out.print("Nhập chuỗi " + (i + 1) + ": ");
-            danhSach.add(scanner.nextLine());
+            System.out.print("Phần tử thứ " + (i + 1) + ": ");
+            arr[i] = scanner.nextInt();
         }
 
-        // Sắp xếp danh sách
-        Collections.sort(danhSach, (s1, s2) -> {
-            int kyTuKhacNhau1 = demKyTuKhacNhau(s1);
-            int kyTuKhacNhau2 = demKyTuKhacNhau(s2);
+        // Đếm số lần lặp bubble sort
+        int soLanLap = demBubbleSort(arr);
 
-            if (kyTuKhacNhau1 != kyTuKhacNhau2) {
-                return kyTuKhacNhau1 - kyTuKhacNhau2;
-            }
-            return s1.length() - s2.length();
-        });
-
-        System.out.println("\nKết quả sau khi sắp xếp:");
-        for (String str : danhSach) {
-            System.out.println(str);
-        }
+        System.out.println("Số lần lặp : " + soLanLap);
+        scanner.close();
     }
 
-    public static int demKyTuKhacNhau(String str) {
-        Set<Character> kyTuKhacNhau = new HashSet<>();
+    public static int demBubbleSort(int[] arr) {
+        int[] temp = arr.clone();
+        int n = temp.length;
+        int soLanLap = 0;
+        boolean daHoanThanh;
 
-        for (char c : str.toCharArray()) {
-            kyTuKhacNhau.add(c);
+        // Vòng lặp chính của bubble sort
+        for (int i = 0; i < n - 1; i++) {
+            daHoanThanh = true;
+
+            // trừ i nữa vì sau mỗi lần lặp, phần tử lớn nhất về cuối, bỏ nó
+            for (int j = 0; j < n - i - 1; j++) {
+                if (temp[j] > temp[j + 1]) {
+                    int t = temp[j];
+                    temp[j] = temp[j + 1];
+                    temp[j + 1] = t;
+                    daHoanThanh = false;
+                }
+            }
+
+            soLanLap++;
+
+            if (daHoanThanh) {
+                return soLanLap;
+            }
         }
 
-        return kyTuKhacNhau.size();
+        return soLanLap;
     }
 }
