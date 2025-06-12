@@ -3,36 +3,44 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-    // Nhập số lượng phần tử
-    System.out.print("Nhập số lượng phần tử: ");
-    int n = scanner.nextInt();
+        System.out.print("Nhập số chuỗi: ");
+        int n = scanner.nextInt();
+        scanner.nextLine();
 
-    // Nhập mảng
-    int[] arr = new int[n];
-    for (int i = 0; i < n; i++) {
-        arr[i] = scanner.nextInt();
+        String[] strings = new String[n];
+        System.out.println("Nhập các chuỗi:");
+        for (int i = 0; i < n; i++) {
+            strings[i] = scanner.nextLine();
+        }
+
+        int result = longestCommonSubstring(strings);
+        System.out.println("Chuỗi con chung dài nhất: " + result);
     }
 
-    // Tính và in kết quả
-    System.out.println("Tổng lớn nhất: " + timTongLonNhat(arr));
-}
+    public static int longestCommonSubstring(String[] strings) {
+        if (strings.length == 0) return 0;
 
-    public static int timTongLonNhat(int[] arr) {
-        int tongMax = 0;
-        for (int i = 0; i < arr.length; i++) {
-            int tong = arr[i];
-            tongMax = Math.max(tongMax, tong);
+        String base = strings[0];
+        int maxLength = 0;
 
-
-            for (int j = i + 2; j < arr.length; j++) {
-                tong += arr[j];
-                tongMax = Math.max(tongMax, tong);
-                j++;
+        for (int i = 0; i < base.length(); i++) {
+            for (int j = i + 1; j <= base.length(); j++) {
+                String sub = base.substring(i, j);
+                boolean isCommon = true;
+                for (int k = 1; k < strings.length; k++) {
+                    if (!strings[k].contains(sub)) {
+                        isCommon = false;
+                        break;
+                    }
+                }
+                if (isCommon) {
+                    maxLength = Math.max(maxLength, sub.length());
+                }
             }
         }
 
-        return tongMax;
+        return maxLength;
     }
 }
