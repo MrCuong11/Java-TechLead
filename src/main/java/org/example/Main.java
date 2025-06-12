@@ -2,39 +2,69 @@ package org.example;
 import java.util.*;
 
 public class Main {
-    public static int count(int[] nums, int target) {
-        Set<Integer> seen = new HashSet<>();
-        Set<String> pairs = new HashSet<>();
-
-        for (int num : nums) {
-            int complement = target - num;
-
-            if (seen.contains(complement)) {
-                int a = Math.min(num, complement);
-                int b = Math.max(num, complement);
-                pairs.add(a + "," + b);
-            }
-
-            seen.add(num);
-        }
-
-        return pairs.size();
-    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        List<String> strings = new ArrayList<>();
 
-        // Nhập dãy số
-        System.out.print("Nhập các số nguyên: ");
-        String[] input = scanner.nextLine().split("\\s+");
-        int[] numbers = Arrays.stream(input).mapToInt(Integer::parseInt).toArray();
 
-        // Nhập giá trị target
-        System.out.print("Nhập giá trị target: ");
-        int target = scanner.nextInt();
+        System.out.print("Nhập số chuỗi: ");
+        int n = scanner.nextInt();
+        scanner.nextLine();
 
-        int result = count(numbers, target);
-        System.out.println("Số cặp phân biệt có tổng bằng " + target + ": " + result);
+
+        System.out.println("Nhập các chuỗi:");
+        for (int i = 0; i < n; i++) {
+            System.out.print("Chuỗi " + (i + 1) + ": ");
+            strings.add(scanner.nextLine());
+        }
+
+
+        String[] result = findLargestOverlap(strings);
+
+
+        System.out.println("\nHai chuỗi có nhiều ký tự trùng nhau nhất:");
+        System.out.println(result[0] + ", " +result[1]);
 
         scanner.close();
+    }
+
+    public static String[] findLargestOverlap(List<String> strings) {
+        String[] result = new String[2];
+        int maxOverlap = -1;
+
+
+        for (int i = 0; i < strings.size(); i++) {
+            for (int j = i + 1; j < strings.size(); j++) {
+                String str1 = strings.get(i);
+                String str2 = strings.get(j);
+
+
+                int overlap = calculateOverlap(str1, str2);
+
+                if (overlap > maxOverlap) {
+                    maxOverlap = overlap;
+                    result[0] = str1;
+                    result[1] = str2;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public static int calculateOverlap(String str1, String str2) {
+        Set<Character> set1 = new HashSet<>();
+        for (char c : str1.toCharArray()) {
+            set1.add(c);
+        }
+        Set<Character> set2 = new HashSet<>();
+        for (char c : str2.toCharArray()) {
+            set2.add(c);
+        }
+
+
+        set1.retainAll(set2);
+
+        return set1.size();
     }
 }
