@@ -4,44 +4,42 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        List<String> danhSach = new ArrayList<>();
 
-        System.out.print("Nhập số lượng phần tử: ");
+        System.out.print("Nhập số chuỗi: ");
         int n = scanner.nextInt();
+        scanner.nextLine();
 
-        // Nhập mảng
-        int[] arr = new int[n];
-        System.out.println("Nhập các phần tử:");
+        // Nhập các chuỗi
         for (int i = 0; i < n; i++) {
-            System.out.print("Phần tử thứ " + (i + 1) + ": ");
-            arr[i] = scanner.nextInt();
+            System.out.print("Nhập chuỗi " + (i + 1) + ": ");
+            danhSach.add(scanner.nextLine());
         }
 
-        // Tính và in kết quả
-        int result = findMaxSum(arr);
-        System.out.println("Tổng lớn nhất của dãy con: " + result);
+        // Sắp xếp danh sách
+        Collections.sort(danhSach, (s1, s2) -> {
+            int kyTuKhacNhau1 = demKyTuKhacNhau(s1);
+            int kyTuKhacNhau2 = demKyTuKhacNhau(s2);
 
-        scanner.close();
+            if (kyTuKhacNhau1 != kyTuKhacNhau2) {
+                return kyTuKhacNhau1 - kyTuKhacNhau2;
+            }
+            return s1.length() - s2.length();
+        });
+
+        System.out.println("\nKết quả sau khi sắp xếp:");
+        for (String str : danhSach) {
+            System.out.println(str);
+        }
     }
 
-    public static int findMaxSum(int[] arr) {
-        if (arr == null || arr.length == 0) return 0;
-        if (arr.length == 1) return arr[0];
+    public static int demKyTuKhacNhau(String str) {
+        Set<Character> kyTuKhacNhau = new HashSet<>();
 
-        int include = arr[0];
-        int exclude = 0;
-
-        // Duyệt từng phần tử trong mảng
-        for (int i = 1; i < arr.length; i++) {
-            // Lưu lại giá trị include cũ
-            int temp = include;
-
-
-            include = arr[i] + exclude;
-
-
-            exclude = Math.max(temp, exclude);
+        for (char c : str.toCharArray()) {
+            kyTuKhacNhau.add(c);
         }
 
-        return Math.max(include, exclude);
+        return kyTuKhacNhau.size();
     }
 }
