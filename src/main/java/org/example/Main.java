@@ -5,43 +5,43 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Nhập chuỗi
-        System.out.println("Nhập chuỗi: ");
-        String input = scanner.nextLine();
+        System.out.print("Nhập số lượng phần tử: ");
+        int n = scanner.nextInt();
 
+        // Nhập mảng
+        int[] arr = new int[n];
+        System.out.println("Nhập các phần tử:");
+        for (int i = 0; i < n; i++) {
+            System.out.print("Phần tử thứ " + (i + 1) + ": ");
+            arr[i] = scanner.nextInt();
+        }
 
-        int result = findLongestPalindrome(input);
-        System.out.println("palindrome dài nhất: " + result);
+        // Tính và in kết quả
+        int result = findMaxSum(arr);
+        System.out.println("Tổng lớn nhất của dãy con: " + result);
 
         scanner.close();
     }
 
-    public static int findLongestPalindrome(String s) {
-        s = s.toLowerCase().replaceAll(" ", "");
+    public static int findMaxSum(int[] arr) {
+        if (arr == null || arr.length == 0) return 0;
+        if (arr.length == 1) return arr[0];
 
-        // Đếm số lần xuất hiện của mỗi ký tự
-        Map<Character, Integer> charCount = new HashMap<>();
-        for (char c : s.toCharArray()) {
-            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
+        int include = arr[0];
+        int exclude = 0;
+
+        // Duyệt từng phần tử trong mảng
+        for (int i = 1; i < arr.length; i++) {
+            // Lưu lại giá trị include cũ
+            int temp = include;
+
+
+            include = arr[i] + exclude;
+
+
+            exclude = Math.max(temp, exclude);
         }
 
-        int length = 0;
-        boolean hasOdd = false;
-
-        // Tính độ dài palindrome
-        for (int count : charCount.values()) {
-            if (count % 2 == 0) {
-                length += count;
-            } else {
-                length += count - 1;
-                hasOdd = true;
-            }
-        }
-
-        if (hasOdd) {
-            length += 1;
-        }
-
-        return length;
+        return Math.max(include, exclude);
     }
 }
