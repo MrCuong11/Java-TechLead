@@ -3,49 +3,36 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Nhập số chuỗi: ");
-        int n = scanner.nextInt();
-        scanner.nextLine();
+    // Nhập số lượng phần tử
+    System.out.print("Nhập số lượng phần tử: ");
+    int n = scanner.nextInt();
 
-        String[] strings = new String[n];
-        for (int i = 0; i < n; i++) {
-            strings[i] = scanner.nextLine();
-        }
-
-        System.out.println("Kết quả: " + timChuoiChungDaiNhat(strings));
+    // Nhập mảng
+    int[] arr = new int[n];
+    for (int i = 0; i < n; i++) {
+        arr[i] = scanner.nextInt();
     }
 
-    public static int timChuoiChungDaiNhat(String[] strings) {
-        //tim chuoi ngan nhat
-        String chuoiNgan = strings[0];
-        for (String s : strings) {
-            if (s.length() < chuoiNgan.length()) {
-                chuoiNgan = s;
+    // Tính và in kết quả
+    System.out.println("Tổng lớn nhất: " + timTongLonNhat(arr));
+}
+
+    public static int timTongLonNhat(int[] arr) {
+        int tongMax = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int tong = arr[i];
+            tongMax = Math.max(tongMax, tong);
+
+
+            for (int j = i + 2; j < arr.length; j++) {
+                tong += arr[j];
+                tongMax = Math.max(tongMax, tong);
+                j++;
             }
         }
 
-        // Kiểm tra từng độ dài có thể
-        for (int len = chuoiNgan.length(); len > 0; len--) {
-            for (int i = 0; i <= chuoiNgan.length() - len; i++) {
-                String sub = chuoiNgan.substring(i, i + len);
-                boolean timThay = true;
-
-                // check neu khong co break luon
-                for (String s : strings) {
-                    if (!s.contains(sub)) {
-                        timThay = false;
-                        break;
-                    }
-                }
-
-                if (timThay){
-                    return len;
-                }
-            }
-        }
-
-        return 0;
+        return tongMax;
     }
 }
