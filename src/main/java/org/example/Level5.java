@@ -56,19 +56,25 @@ public class Level5 {
 
 
 
-        List<Map<String, Integer>> collect = new ArrayList<>();
-        collect.add(Map.of("a", 1, "b", 2));
-        collect.add(Map.of("a", 1, "b", 3));
-        collect.add(Map.of("a", 2, "b", 2));
+//        List<Map<String, Integer>> collect = new ArrayList<>();
+//        collect.add(Map.of("a", 1, "b", 2));
+//        collect.add(Map.of("a", 1, "b", 3));
+//        collect.add(Map.of("a", 2, "b", 2));
+//
+//        System.out.println("Group by 'a':");
+//        Map<Integer, List<Map<String, Integer>>> groupByA = groupBy(collect, "a");
+//        System.out.println(groupByA);
+//
+//        System.out.println("\nGroup by 'b':");
+//        Map<Integer, List<Map<String, Integer>>> groupByB = groupBy(collect, "b");
+//        System.out.println(groupByB);
 
-        System.out.println("Group by 'a':");
-        Map<Integer, List<Map<String, Integer>>> groupByA = groupBy(collect, "a");
-        System.out.println(groupByA);
 
-        System.out.println("\nGroup by 'b':");
-        Map<Integer, List<Map<String, Integer>>> groupByB = groupBy(collect, "b");
-        System.out.println(groupByB);
 
+
+
+//        System.out.println(trimAll("    hello     world    "));
+//        System.out.println(trimAll("   I    am    good      "));
 
 
 
@@ -174,4 +180,10 @@ public class Level5 {
         return grouped;
     }
 
+
+
+//    5.6
+    public static String trimAll(String input) {
+        return input.trim().replaceAll("\\s+", " ");
+    }
 }
