@@ -43,6 +43,24 @@ public class CollectionFramwork {
 //        sortAscending(numbers);
 //        sortDescending(numbers);
 
+
+
+
+
+
+//   Bai 7
+//        HashMap<String, List<Integer>> studentScores = new HashMap<>();
+//
+//        studentScores.put("A", Arrays.asList(8, 9, 7));
+//        studentScores.put("B", Arrays.asList(6, 7, 5, 8));
+//        studentScores.put("C", Arrays.asList(9, 10, 10));
+//
+//        calculateAndPrintAverages(studentScores);
+
+
+
+
+
         scanner.close();
     }
 
@@ -252,6 +270,20 @@ public class CollectionFramwork {
         }
 
         return maxProfit;
+    }
+
+
+
+    //bai 7
+    public static void calculateAndPrintAverages(HashMap<String, List<Integer>> scores) {
+
+        for (Map.Entry<String, List<Integer>> entry : scores.entrySet()) {
+            String student = entry.getKey();
+            List<Integer> marks = entry.getValue();
+
+            double average = marks.stream().mapToInt(Integer::intValue).average().orElse(0);
+            System.out.printf(student, average);
+        }
     }
 
 }
