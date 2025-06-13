@@ -1,9 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Level5 {
     public static void main(String[] args) {
@@ -13,15 +10,24 @@ public class Level5 {
 //        int[] reversed = reverseArray(arr);
 //        System.out.println(Arrays.toString(reversed));
 
+
+
+
+
         // String[] arr = inputStringArray(scanner);
         // System.out.print("Nhập kích thước mỗi phần: ");
         // int size = scanner.nextInt();
-
         // List<List<String>> result = chunk(arr, size);
-
         // for (List<String> sublist : result) {
         //     System.out.println(sublist);
         // }
+
+
+//        int[] numbers = {1, 2, 3, 2, 4, 3, 5};
+//        int[] uniqueNumbers = uniq(numbers);
+//        System.out.println("Mảng sau: " + Arrays.toString(uniqueNumbers));
+
+        
 
         scanner.close();
     }
@@ -72,6 +78,21 @@ public class Level5 {
                 sublist.add(arr[j]);
             }
             result.add(sublist);
+        }
+        return result;
+    }
+
+    // 5.3
+    public static int[] uniq(int[] arr) {
+        Set<Integer> set = new LinkedHashSet<>();
+        for (int num : arr) {
+            set.add(num);
+        }
+        
+        int[] result = new int[set.size()];
+        int i = 0;
+        for (int num : set) {
+            result[i++] = num;
         }
         return result;
     }
