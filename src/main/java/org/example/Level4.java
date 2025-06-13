@@ -7,6 +7,7 @@ public class Level4 {
         Scanner scanner = new Scanner(System.in);
 //        inputAndPrintBubbleSortIterations(scanner);
 //        inputAndPrintPairCountWithTarget(scanner);
+//        inputAndPrintLongestCommonSubstringLength(scanner);
         scanner.close();
     }
 
@@ -78,5 +79,44 @@ public class Level4 {
         return count;
     }
 
+//    Level 4, 4.3: Write a program that takes a list of strings as input and returns the length of the longest substring that appears in every string in the list.
+    public static void inputAndPrintLongestCommonSubstringLength(Scanner scanner) {
+        System.out.print("Nhập số chuỗi: ");
+        int n = scanner.nextInt();
+        scanner.nextLine();
 
+        String[] strings = new String[n];
+        for (int i = 0; i < n; i++) {
+            strings[i] = scanner.nextLine();
+        }
+
+        System.out.println("Kết quả: " + timChuoiChungDaiNhat(strings));
+    }
+
+    public static int timChuoiChungDaiNhat(String[] strings) {
+        String chuoiNgan = strings[0];
+        for (String s : strings) {
+            if (s.length() < chuoiNgan.length()) {
+                chuoiNgan = s;
+            }
+        }
+
+        for (int len = chuoiNgan.length(); len > 0; len--) {
+            for (int i = 0; i <= chuoiNgan.length() - len; i++) {
+                String sub = chuoiNgan.substring(i, i + len);
+                boolean timThay = true;
+                for (String s : strings) {
+                    if (!s.contains(sub)) {
+                        timThay = false;
+                        break;
+                    }
+                }
+                if (timThay){
+                    return len;
+                }
+            }
+        }
+
+        return 0;
+    }
 }
