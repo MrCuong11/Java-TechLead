@@ -12,6 +12,7 @@ public class Level3 {
 //        inputAndPrintMedianOfCombinedLists(scanner);
 //        inputAndPrintPairCount(scanner);
 //        inputAndPrintLargestOverlap(scanner);
+//        inputAndPrintLongestPalindromeLength(scanner);
         scanner.close();
     }
 
@@ -245,6 +246,41 @@ public class Level3 {
     }
 
 
+//    Level 3, 3.7: Write a program that takes a string as input and returns the length of the longest palindrome that can be formed by rearranging the characters in the string.
+    public static void inputAndPrintLongestPalindromeLength(Scanner scanner) {
+        System.out.println("Nhập chuỗi: ");
+        String input = scanner.nextLine();
+
+        int result = findLongestPalindrome(input);
+        System.out.println("palindrome dài nhất: " + result);
+    }
+
+    public static int findLongestPalindrome(String s) {
+        s = s.toLowerCase().replaceAll(" ", "");
+
+        Map<Character, Integer> charCount = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
+        }
+
+        int length = 0;
+        boolean hasOdd = false;
+
+        for (int count : charCount.values()) {
+            if (count % 2 == 0) {
+                length += count;
+            } else {
+                length += count - 1;
+                hasOdd = true;
+            }
+        }
+
+        if (hasOdd) {
+            length += 1;
+        }
+
+        return length;
+    }
 
 
 }
