@@ -8,6 +8,7 @@ public class Level2 {
         Scanner scanner = new Scanner(System.in);
 //        inputAndFindSecondLargest(scanner);
 //        inputAndFindLongestWord(scanner);
+//        inputAndPrintLCS(scanner);
 
 
 
@@ -66,5 +67,33 @@ public class Level2 {
     }
 
 
+    //    Level 2, 2.3: Write a program that takes two strings as input and returns the longest common subsequence of the two strings.
+    public static void inputAndPrintLCS(Scanner scanner) {
+        System.out.print("String 1: ");
+        String s1 = scanner.nextLine();
+        System.out.print("String 2: ");
+        String s2 = scanner.nextLine();
+
+        int m = s1.length(), n = s2.length();
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = 0; i < m; i++)
+            for (int j = 0; j < n; j++)
+                if (s1.charAt(i) == s2.charAt(j))
+                    dp[i + 1][j + 1] = dp[i][j] + 1;
+                else
+                    dp[i + 1][j + 1] = Math.max(dp[i][j + 1], dp[i + 1][j]);
+
+        StringBuilder lcs = new StringBuilder();
+        int i = m, j = n;
+        while (i > 0 && j > 0) {
+            if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                lcs.append(s1.charAt(i - 1));
+                i--; j--;
+            } else if (dp[i - 1][j] > dp[i][j - 1]) i--;
+            else j--;
+        }
+        System.out.println("LCS: " + lcs.reverse());
+    }
 
 }
