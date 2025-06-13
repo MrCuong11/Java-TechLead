@@ -80,18 +80,26 @@ public class Level5 {
 
 
 
-        List<String> keys = Arrays.asList("b", "a", "c");
+//        List<String> keys = Arrays.asList("b", "a", "c");
+//        List<Map<String, Integer>> collections = Arrays.asList(
+//                Map.of("a", 1, "b", 1, "c", 2, "d", 4, "e", 5),
+//                Map.of("a", 2, "b", 1, "c", 5, "d", 4, "e", 5),
+//                Map.of("d", 4, "e", 5, "a", 22, "b", 11, "c", 51)
+//        );
+//        List<Map<String, Integer>> result = mapKey(keys, collections);
+//        result.forEach(System.out::println);
 
-        List<Map<String, Integer>> collections = Arrays.asList(
-                Map.of("a", 1, "b", 1, "c", 2, "d", 4, "e", 5),
-                Map.of("a", 2, "b", 1, "c", 5, "d", 4, "e", 5),
-                Map.of("d", 4, "e", 5, "a", 22, "b", 11, "c", 51)
-        );
 
-        List<Map<String, Integer>> result = mapKey(keys, collections);
 
-        result.forEach(System.out::println);
+        List<Map<String, Integer>> arr = new ArrayList<>(Arrays.asList(
+                new HashMap<>(Map.of("id", 10, "order", 0)),
+                new HashMap<>(Map.of("id", 12, "order", 1)),
+                new HashMap<>(Map.of("id", 9,  "order", 2)),
+                new HashMap<>(Map.of("id", 11, "order", 3))
+        ));
 
+        switchOrder(arr, 9, 1);
+        arr.forEach(System.out::println);
 
         scanner.close();
     }
@@ -219,5 +227,34 @@ public class Level5 {
                 .collect(Collectors.toList());
     }
 
+
+
+
+//    5.8
+
+    public static void switchOrder(List<Map<String, Integer>> arr, int targetId, int newOrder) {
+//        sort tăng dần theo order
+        arr.sort(Comparator.comparingInt(o -> o.get("order")));
+
+        Map<String, Integer> target = null;
+        for (Map<String, Integer> obj : arr) {
+            if (obj.get("id") == targetId) {
+                target = obj;
+                break;
+            }
+        }
+
+        if (target == null) return;
+
+
+        arr.remove(target);
+        // adding for newOrder
+        arr.add(newOrder, target);
+
+//        re update position for order
+        for (int i = 0; i < arr.size(); i++) {
+            arr.get(i).put("order", i);
+        }
+    }
 
 }
