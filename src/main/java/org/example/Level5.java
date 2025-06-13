@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Level5 {
     public static void main(String[] args) {
@@ -77,6 +78,19 @@ public class Level5 {
 //        System.out.println(trimAll("   I    am    good      "));
 
 
+
+
+        List<String> keys = Arrays.asList("b", "a", "c");
+
+        List<Map<String, Integer>> collections = Arrays.asList(
+                Map.of("a", 1, "b", 1, "c", 2, "d", 4, "e", 5),
+                Map.of("a", 2, "b", 1, "c", 5, "d", 4, "e", 5),
+                Map.of("d", 4, "e", 5, "a", 22, "b", 11, "c", 51)
+        );
+
+        List<Map<String, Integer>> result = mapKey(keys, collections);
+
+        result.forEach(System.out::println);
 
 
         scanner.close();
@@ -186,4 +200,24 @@ public class Level5 {
     public static String trimAll(String input) {
         return input.trim().replaceAll("\\s+", " ");
     }
+
+
+
+
+//    5.7
+    public static List<Map<String, Integer>> mapKey(List<String> keys, List<Map<String, Integer>> collections) {
+        return collections.stream()
+                .map(obj -> {
+                    Map<String, Integer> filtered = new LinkedHashMap<>();
+                    for (String key : keys) {
+                        if (obj.containsKey(key)) {
+                            filtered.put(key, obj.get(key));
+                        }
+                    }
+                    return filtered;
+                })
+                .collect(Collectors.toList());
+    }
+
+
 }
