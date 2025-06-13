@@ -91,15 +91,30 @@ public class Level5 {
 
 
 
-        List<Map<String, Integer>> arr = new ArrayList<>(Arrays.asList(
-                new HashMap<>(Map.of("id", 10, "order", 0)),
-                new HashMap<>(Map.of("id", 12, "order", 1)),
-                new HashMap<>(Map.of("id", 9,  "order", 2)),
-                new HashMap<>(Map.of("id", 11, "order", 3))
-        ));
+//        List<Map<String, Integer>> arr = new ArrayList<>(Arrays.asList(
+//                new HashMap<>(Map.of("id", 10, "order", 0)),
+//                new HashMap<>(Map.of("id", 12, "order", 1)),
+//                new HashMap<>(Map.of("id", 9,  "order", 2)),
+//                new HashMap<>(Map.of("id", 11, "order", 3))
+//        ));
+//
+//        switchOrder(arr, 9, 1);
+//        arr.forEach(System.out::println);
 
-        switchOrder(arr, 9, 1);
-        arr.forEach(System.out::println);
+
+
+
+
+
+        List<Map<String, Object>> arr = List.of(
+                Map.of("a", 2, "b", 10),
+                Map.of("a", 12, "c", 11),
+                Map.of("a", 8, "b", 14, "d", 20),
+                Map.of("a", "8")
+        );
+
+        Map<String, Integer> result = sumAll(arr);
+        System.out.println(result);
 
         scanner.close();
     }
@@ -255,6 +270,29 @@ public class Level5 {
         for (int i = 0; i < arr.size(); i++) {
             arr.get(i).put("order", i);
         }
+    }
+
+
+
+//    5.9
+    public static Map<String, Integer> sumAll(List<Map<String, Object>> input) {
+        Map<String, Integer> result = new HashMap<>();
+
+        for (Map<String, Object> obj : input) {
+            //get key, value for each map
+            for (Map.Entry<String, Object> entry : obj.entrySet()) {
+                String key = entry.getKey();
+                Object value = entry.getValue();
+
+                if (value instanceof Number) {
+                    //get value if it has type Number
+                    int num = ((Number) value).intValue();
+                    result.put(key, result.getOrDefault(key, 0) + num);
+                }
+            }
+        }
+
+        return result;
     }
 
 }
