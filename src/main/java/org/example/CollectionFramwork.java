@@ -37,6 +37,12 @@ public class CollectionFramwork {
 //        checkPersonExists(people, scanner);
 
 
+
+//        ArrayList
+//        inputNumbers(scanner);
+//        sortAscending(numbers);
+//        sortDescending(numbers);
+
         scanner.close();
     }
 
@@ -197,5 +203,37 @@ public class CollectionFramwork {
         }
     }
 
+
+
+    // Bai 4
+    public static void sortAscending(ArrayList<Integer> list) {
+        ArrayList<Integer> sorted = new ArrayList<>(list);
+        Collections.sort(sorted);
+        System.out.println("Danh sách tăng dần: " + sorted);
+    }
+    public static void sortDescending(ArrayList<Integer> list) {
+        ArrayList<Integer> sorted = new ArrayList<>(list);
+        Collections.sort(sorted, Collections.reverseOrder());
+        System.out.println("Danh sách giảm dần: " + sorted);
+    }
+
+
+
+
+    // Bai 5
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> numMap = new HashMap<>();
+        for(int i = 0; i < nums.length; i++){
+            int num = nums[i];
+            int complement = target - num;
+            if(numMap.containsKey(complement)){
+                return new int []{numMap.get(complement), i};
+            }
+            numMap.put(num, i);
+        }
+        return null;
+    }
+
+//    Bai 6
 
 }
