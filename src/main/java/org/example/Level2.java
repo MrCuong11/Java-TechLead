@@ -9,6 +9,8 @@ public class Level2 {
 //        inputAndFindSecondLargest(scanner);
 //        inputAndFindLongestWord(scanner);
 //        inputAndPrintLCS(scanner);
+//        inputAndPrintSumDivisibleBy3And5(scanner);
+//        inputAndPrintMaxSubarraySum(scanner);
 
 
 
@@ -95,5 +97,49 @@ public class Level2 {
         }
         System.out.println("LCS: " + lcs.reverse());
     }
+
+//    Level 2, 2.4: Write a program that takes a list of numbers as input and returns the sum of the numbers that are divisible by both 3 and 5.
+    public static void inputAndPrintSumDivisibleBy3And5(Scanner scanner) {
+        System.out.print("Enter how many numbers: ");
+        int count = scanner.nextInt();
+
+        int[] numbers = new int[count];
+        for (int i = 0; i < count; i++) {
+            System.out.print("Enter number " + (i + 1) + ": ");
+            numbers[i] = scanner.nextInt();
+        }
+
+        int sum = 0;
+        for (int num : numbers) {
+            if (num % 3 == 0 && num % 5 == 0) {
+                sum += num;
+            }
+        }
+
+        System.out.println("Sum of numbers divisible by both 3 and 5: " + sum);
+    }
+
+//    Level 2, 2.5: Write a program that takes a list of integers as input and returns the maximum sum of any contiguous subarray within the list
+    public static void inputAndPrintMaxSubarraySum(Scanner scanner) {
+        System.out.print("Nhập danh sách số nguyên: ");
+        String input = scanner.nextLine();
+        String[] parts = input.trim().split("\\s+");
+        int[] numbers = new int[parts.length];
+
+        for (int i = 0; i < parts.length; i++) {
+            numbers[i] = Integer.parseInt(parts[i]);
+        }
+
+        int maxSoFar = numbers[0];
+        int currentMax = numbers[0];
+
+        for (int i = 1; i < numbers.length; i++) {
+            currentMax = Math.max(numbers[i], currentMax + numbers[i]);
+            maxSoFar = Math.max(maxSoFar, currentMax);
+        }
+
+        System.out.println("Tổng lớn nhất của mảng con liên tiếp là: " + maxSoFar);
+    }
+
 
 }
