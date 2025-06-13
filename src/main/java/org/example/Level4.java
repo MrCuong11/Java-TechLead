@@ -8,6 +8,7 @@ public class Level4 {
 //        inputAndPrintBubbleSortIterations(scanner);
 //        inputAndPrintPairCountWithTarget(scanner);
 //        inputAndPrintLongestCommonSubstringLength(scanner);
+//        inputAndPrintMaxSumWithGap(scanner);
         scanner.close();
     }
 
@@ -119,4 +120,34 @@ public class Level4 {
 
         return 0;
     }
+
+//    Level 4, 4.4: Write a program that takes a list of integers as input and returns the maximum sum of any contiguous subarray within the list, with the additional constraint that the subarray must not contain any consecutive integers
+
+    public static void inputAndPrintMaxSumWithGap(Scanner scanner) {
+        System.out.print("Nhập số lượng phần tử: ");
+        int n = scanner.nextInt();
+
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+
+        System.out.println("Tổng lớn nhất: " + timTongLonNhat(arr));
+    }
+
+    public static int timTongLonNhat(int[] arr) {
+        int tongMax = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int tong = arr[i];
+            tongMax = Math.max(tongMax, tong);
+
+            for (int j = i + 2; j < arr.length; j++) {
+                tong += arr[j];
+                tongMax = Math.max(tongMax, tong);
+                j++;
+            }
+        }
+        return tongMax;
+    }
+
 }
