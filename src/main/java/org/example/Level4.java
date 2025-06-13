@@ -9,6 +9,7 @@ public class Level4 {
 //        inputAndPrintPairCountWithTarget(scanner);
 //        inputAndPrintLongestCommonSubstringLength(scanner);
 //        inputAndPrintMaxSumWithGap(scanner);
+//        inputAndPrintLongestCommonSubstring(scanner);
         scanner.close();
     }
 
@@ -148,6 +149,48 @@ public class Level4 {
             }
         }
         return tongMax;
+    }
+
+//    Level 4, 4.5: Write a program that takes a list of strings as input and returns the length of the longest common substring of the strings.
+
+    public static void inputAndPrintLongestCommonSubstring(Scanner scanner) {
+        System.out.print("Nhập số chuỗi: ");
+        int n = scanner.nextInt();
+        scanner.nextLine();
+
+        String[] strings = new String[n];
+        System.out.println("Nhập các chuỗi:");
+        for (int i = 0; i < n; i++) {
+            strings[i] = scanner.nextLine();
+        }
+
+        int result = longestCommonSubstring(strings);
+        System.out.println("Chuỗi con chung dài nhất: " + result);
+    }
+
+    public static int longestCommonSubstring(String[] strings) {
+        if (strings.length == 0) return 0;
+
+        String base = strings[0];
+        int maxLength = 0;
+
+        for (int i = 0; i < base.length(); i++) {
+            for (int j = i + 1; j <= base.length(); j++) {
+                String sub = base.substring(i, j);
+                boolean isCommon = true;
+                for (int k = 1; k < strings.length; k++) {
+                    if (!strings[k].contains(sub)) {
+                        isCommon = false;
+                        break;
+                    }
+                }
+                if (isCommon) {
+                    maxLength = Math.max(maxLength, sub.length());
+                }
+            }
+        }
+
+        return maxLength;
     }
 
 }
