@@ -1,7 +1,6 @@
 package org.example;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Level3 {
     public static void main(String[] args) {
@@ -10,6 +9,9 @@ public class Level3 {
 //        inputAndPrintMaxDifference(scanner);
 //        inputAndPrintLISLength(scanner);
 //        inputAndPrintSmallestUnreachableSum(scanner);
+//        inputAndPrintMedianOfCombinedLists(scanner);
+//        inputAndPrintPairCount(scanner);
+//        inputAndPrintLargestOverlap(scanner);
         scanner.close();
     }
 
@@ -127,5 +129,122 @@ public class Level3 {
 
         System.out.println("result: " + res);
     }
+
+//    Level 3, 3.6: Write a program that takes two lists of integers as input and returns the median of the combined list.
+    public static void inputAndPrintMedianOfCombinedLists(Scanner scanner) {
+        System.out.print("List 1: ");
+        int[] list1 = Arrays.stream(scanner.nextLine().split("\\s+"))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+
+        System.out.print("List 2: ");
+        int[] list2 = Arrays.stream(scanner.nextLine().split("\\s+"))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+
+        int[] combined = new int[list1.length + list2.length];
+        System.arraycopy(list1, 0, combined, 0, list1.length);
+        System.arraycopy(list2, 0, combined, list1.length, list2.length);
+
+        Arrays.sort(combined);
+
+        double median;
+        int n = combined.length;
+        if (n % 2 == 0) {
+            median = (combined[n / 2 - 1] + combined[n / 2]) / 2.0;
+        } else {
+            median = combined[n / 2];
+        }
+
+        System.out.println("Median: " + median);
+    }
+
+
+//    Level 3, 3.8: Write a program that takes a list of numbers as input and returns the number of distinct pairs of numbers in the list that sum up to a target value.
+    public static void inputAndPrintPairCount(Scanner scanner) {
+        System.out.print("Nhập các số nguyên: ");
+        String[] input = scanner.nextLine().split("\\s+");
+        int[] numbers = Arrays.stream(input).mapToInt(Integer::parseInt).toArray();
+
+        System.out.print("Nhập giá trị target: ");
+        int target = scanner.nextInt();
+
+        Set<Integer> seen = new HashSet<>();
+        Set<String> pairs = new HashSet<>();
+
+        for (int num : numbers) {
+            int complement = target - num;
+
+            if (seen.contains(complement)) {
+                int a = Math.min(num, complement);
+                int b = Math.max(num, complement);
+                pairs.add(a + "," + b);
+            }
+
+            seen.add(num);
+        }
+
+        System.out.println("Số cặp phân biệt có tổng bằng " + target + ": " + pairs.size());
+    }
+
+//    Level 3, 3.4: Write a program that takes a list of strings as input and returns the two strings with the largest overlap of characters.
+    public static void inputAndPrintLargestOverlap(Scanner scanner) {
+        List<String> strings = new ArrayList<>();
+
+        System.out.print("Nhập số chuỗi: ");
+        int n = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Nhập các chuỗi:");
+        for (int i = 0; i < n; i++) {
+            System.out.print("Chuỗi " + (i + 1) + ": ");
+            strings.add(scanner.nextLine());
+        }
+
+        String[] result = findLargestOverlap(strings);
+
+        System.out.println("\nHai chuỗi có nhiều ký tự trùng nhau nhất:");
+        System.out.println(result[0] + ", " + result[1]);
+    }
+
+    public static String[] findLargestOverlap(List<String> strings) {
+        String[] result = new String[2];
+        int maxOverlap = -1;
+
+        for (int i = 0; i < strings.size(); i++) {
+            for (int j = i + 1; j < strings.size(); j++) {
+                String str1 = strings.get(i);
+                String str2 = strings.get(j);
+
+                int overlap = calculateOverlap(str1, str2);
+
+                if (overlap > maxOverlap) {
+                    maxOverlap = overlap;
+                    result[0] = str1;
+                    result[1] = str2;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public static int calculateOverlap(String str1, String str2) {
+        Set<Character> set1 = new HashSet<>();
+        for (char c : str1.toCharArray()) {
+            set1.add(c);
+        }
+        Set<Character> set2 = new HashSet<>();
+        for (char c : str2.toCharArray()) {
+            set2.add(c);
+        }
+
+        set1.retainAll(set2);
+
+        return set1.size();
+    }
+
+
+
 
 }
