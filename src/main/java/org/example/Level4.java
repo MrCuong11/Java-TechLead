@@ -14,6 +14,7 @@ public class Level4 {
 //        inputAndSortStringsByDistinctWords(scanner);
 //        inputAndPrintSmallestMissingSum(scanner);
 //        inputAndPrintLISWithDiffOne(scanner);
+//        inputAndPrintLargestSubstringOverlap(scanner);
         scanner.close();
     }
 
@@ -332,6 +333,57 @@ public class Level4 {
         return maxLen;
     }
 
+
+// Level 4, 4.10: Write a program that takes a list of strings as input and returns the two strings with the largest overlap of substrings, where the substrings must be at lea	st k characters long (where k is a parameter to the function).
+
+    public static void inputAndPrintLargestSubstringOverlap(Scanner scanner) {
+        System.out.print("Nhập số chuỗi: ");
+        int n = Integer.parseInt(scanner.nextLine());
+        String[] strings = new String[n];
+        System.out.println("Nhập các chuỗi:");
+        for (int i = 0; i < n; i++) {
+            strings[i] = scanner.nextLine();
+        }
+        System.out.print("Nhập giá trị k: ");
+        int k = Integer.parseInt(scanner.nextLine());
+
+        String[] result = findLargestSubstringOverlap(strings, k);
+
+        System.out.println("Hai chuỗi có nhiều substring trùng nhau nhất (độ dài >= " + k + "):");
+        System.out.println(result[0] + ", " + result[1]);
+    }
+
+    public static String[] findLargestSubstringOverlap(String[] strings, int k) {
+        int maxOverlap = 0;
+        String[] result = new String[2];
+
+        for (int i = 0; i < strings.length; i++) {
+            for (int j = i + 1; j < strings.length; j++) {
+                int overlap = countCommonSubstrings(strings[i], strings[j], k);
+                if (overlap > maxOverlap) {
+                    maxOverlap = overlap;
+                    result[0] = strings[i];
+                    result[1] = strings[j];
+                }
+            }
+        }
+        return result;
+    }
+
+    public static int countCommonSubstrings(String s1, String s2, int k) {
+        Set<String> subs1 = new HashSet<>();
+        Set<String> subs2 = new HashSet<>();
+
+        for (int i = 0; i <= s1.length() - k; i++) {
+            subs1.add(s1.substring(i, i + k));
+        }
+        for (int i = 0; i <= s2.length() - k; i++) {
+            subs2.add(s2.substring(i, i + k));
+        }
+
+        subs1.retainAll(subs2);
+        return subs1.size();
+    }
 
 }
 
