@@ -13,6 +13,7 @@ public class Level4 {
 //        inputAndPrintMaxProductOfThree(scanner);
 //        inputAndSortStringsByDistinctWords(scanner);
 //        inputAndPrintSmallestMissingSum(scanner);
+//        inputAndPrintLISWithDiffOne(scanner);
         scanner.close();
     }
 
@@ -298,6 +299,39 @@ public class Level4 {
         while (sums.contains(result)) result++;
         return result;
     }
+
+
+//    Level 4, 4.9 Write a program that takes a list of integers as input and returns the length of the longest increasing subsequence of the numbers, with the additional constraint that no two adjacent elements in the subsequence can differ by more than 1.
+    public static void inputAndPrintLISWithDiffOne(Scanner scanner) {
+        System.out.print("Nhập số lượng: ");
+        int n = scanner.nextInt();
+        int[] arr = new int[n];
+        System.out.println("Nhập các phần tử:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+
+        int result = longestIncreasingSubsequenceDiffOne(arr);
+        System.out.println("Độ dài LIS: " + result);
+    }
+
+    public static int longestIncreasingSubsequenceDiffOne(int[] arr) {
+        int n = arr.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, 1);
+
+        int maxLen = 1;
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (arr[i] > arr[j] && arr[i] - arr[j] <= 1) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+            maxLen = Math.max(maxLen, dp[i]);
+        }
+        return maxLen;
+    }
+
 
 }
 
