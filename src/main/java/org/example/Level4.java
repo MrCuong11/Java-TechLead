@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Level4 {
@@ -10,6 +11,7 @@ public class Level4 {
 //        inputAndPrintLongestCommonSubstringLength(scanner);
 //        inputAndPrintMaxSumWithGap(scanner);
 //        inputAndPrintLongestCommonSubstring(scanner);
+//        inputAndPrintMaxProductOfThree(scanner);
         scanner.close();
     }
 
@@ -191,6 +193,33 @@ public class Level4 {
         }
 
         return maxLength;
+    }
+
+
+//    Level 4, 4.6: Write a program that takes a list of integers as input and returns the maximum product of any three distinct elements in the list.
+
+    public static void inputAndPrintMaxProductOfThree(Scanner scanner) {
+        System.out.print("Nhập: ");
+        int n = scanner.nextInt();
+        int[] arr = new int[n];
+
+        System.out.println("Nhập các phần tử:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+
+        int result = maxProductOfThree(arr);
+        System.out.println("Tích lớn nhất của 3 phần tử: " + result);
+    }
+
+    public static int maxProductOfThree(int[] arr) {
+        Arrays.sort(arr);
+
+        int n = arr.length;
+        int option1 = arr[n - 1] * arr[n - 2] * arr[n - 3];
+        int option2 = arr[0] * arr[1] * arr[n - 1];
+
+        return Math.max(option1, option2);
     }
 
 }
