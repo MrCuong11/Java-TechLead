@@ -13,6 +13,8 @@ public class Level3 {
 //        inputAndPrintPairCount(scanner);
 //        inputAndPrintLargestOverlap(scanner);
 //        inputAndPrintLongestPalindromeLength(scanner);
+//        inputAndPrintMaxNonAdjacentSum(scanner);
+//        inputAndSortStringsByUniqueChars(scanner);
         scanner.close();
     }
 
@@ -282,5 +284,74 @@ public class Level3 {
         return length;
     }
 
+//    Level 3, 3.9: Write a program that takes a list of integers as input and returns the maximum sum of any contiguous subarray within the list, with the constraint that no two adjacent elements in the subarray can be selected
+    public static void inputAndPrintMaxNonAdjacentSum(Scanner scanner) {
+        System.out.print("Nhập số lượng phần tử: ");
+        int n = scanner.nextInt();
 
+        int[] arr = new int[n];
+        System.out.println("Nhập các phần tử:");
+        for (int i = 0; i < n; i++) {
+            System.out.print("Phần tử thứ " + (i + 1) + ": ");
+            arr[i] = scanner.nextInt();
+        }
+
+        int result = findMaxSum(arr);
+        System.out.println("Tổng lớn nhất của dãy con: " + result);
+    }
+
+    public static int findMaxSum(int[] arr) {
+        if (arr == null || arr.length == 0) return 0;
+        if (arr.length == 1) return arr[0];
+
+        int include = arr[0];
+        int exclude = 0;
+
+        for (int i = 1; i < arr.length; i++) {
+            int temp = include;
+            include = arr[i] + exclude;
+            exclude = Math.max(temp, exclude);
+        }
+
+        return Math.max(include, exclude);
+    }
+
+//    Level 3, 3.10: Write a program that takes a list of strings as input and returns the list sorted by the number of distinct characters in each string, with the shortest strings appearing first.
+    public static void inputAndSortStringsByUniqueChars(Scanner scanner) {
+        List<String> danhSach = new ArrayList<>();
+
+        System.out.print("Nhập số chuỗi: ");
+        int n = scanner.nextInt();
+        scanner.nextLine();
+
+        for (int i = 0; i < n; i++) {
+            System.out.print("Nhập chuỗi " + (i + 1) + ": ");
+            danhSach.add(scanner.nextLine());
+        }
+
+        Collections.sort(danhSach, (s1, s2) -> {
+            int kyTuKhacNhau1 = demKyTuKhacNhau(s1);
+            int kyTuKhacNhau2 = demKyTuKhacNhau(s2);
+
+            if (kyTuKhacNhau1 != kyTuKhacNhau2) {
+                return kyTuKhacNhau1 - kyTuKhacNhau2;
+            }
+            return s1.length() - s2.length();
+        });
+
+        System.out.println("\nKết quả sau khi sắp xếp:");
+        for (String str : danhSach) {
+            System.out.println(str);
+        }
+    }
+
+    public static int demKyTuKhacNhau(String str) {
+        Set<Character> kyTuKhacNhau = new HashSet<>();
+
+        for (char c : str.toCharArray()) {
+            kyTuKhacNhau.add(c);
+        }
+
+        return kyTuKhacNhau.size();
+    }
 }
