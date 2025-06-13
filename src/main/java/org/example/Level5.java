@@ -1,10 +1,13 @@
 package org.example;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Level5 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
 //        int[] arr = inputIntArray(scanner);
@@ -106,15 +109,26 @@ public class Level5 {
 
 
 
-        List<Map<String, Object>> arr = List.of(
-                Map.of("a", 2, "b", 10),
-                Map.of("a", 12, "c", 11),
-                Map.of("a", 8, "b", 14, "d", 20),
-                Map.of("a", "8")
-        );
+//        List<Map<String, Object>> arr = List.of(
+//                Map.of("a", 2, "b", 10),
+//                Map.of("a", 12, "c", 11),
+//                Map.of("a", 8, "b", 14, "d", 20),
+//                Map.of("a", "8")
+//        );
+//
+//        Map<String, Integer> result = sumAll(arr);
+//        System.out.println(result);
 
-        Map<String, Integer> result = sumAll(arr);
-        System.out.println(result);
+
+
+
+
+
+        Map<String, String> params = Map.of("name", "Jonny");
+
+        generateFileFromTemplate("C:\\Users\\NGUYEN MANH CUONG\\Downloads\\template.txt", 
+                               "C:\\Users\\NGUYEN MANH CUONG\\Downloads\\output.txt", 
+                               params);
 
         scanner.close();
     }
@@ -293,6 +307,24 @@ public class Level5 {
         }
 
         return result;
+    }
+
+
+
+
+//    5.10 - A
+    public static void generateFileFromTemplate(String templatePath, String outputPath, Map<String, String> params) throws IOException {
+        //  Đọc nội dung file template
+        String content = new String(Files.readAllBytes(Paths.get(templatePath)));
+
+        // Thay thế từng {{key}} bằng value tương ứng
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            String placeholder = "\\{\\{" + entry.getKey() + "\\}\\}";
+            content = content.replaceAll(placeholder, entry.getValue());
+        }
+
+
+        Files.write(Paths.get(outputPath), content.getBytes());
     }
 
 }
