@@ -1,7 +1,6 @@
 package org.example;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Level4 {
     public static void main(String[] args) {
@@ -12,6 +11,8 @@ public class Level4 {
 //        inputAndPrintMaxSumWithGap(scanner);
 //        inputAndPrintLongestCommonSubstring(scanner);
 //        inputAndPrintMaxProductOfThree(scanner);
+//        inputAndSortStringsByDistinctWords(scanner);
+//        inputAndPrintSmallestMissingSum(scanner);
         scanner.close();
     }
 
@@ -222,4 +223,81 @@ public class Level4 {
         return Math.max(option1, option2);
     }
 
+
+//    Level 4, 4.7: Write a program that takes a list of strings as input and returns the list sorted by the number of distinct words in each string, with the longest strings appearing first.
+
+    public static void inputAndSortStringsByDistinctWords(Scanner scanner) {
+        System.out.print("Nhập số chuỗi: ");
+        int n = Integer.parseInt(scanner.nextLine());
+
+        List<String> strings = new ArrayList<>();
+        System.out.println("Nhập các chuỗi:");
+        for (int i = 0; i < n; i++) {
+            strings.add(scanner.nextLine());
+        }
+
+        strings.sort((a, b) -> {
+            int distinctA = countDistinctWords(a);
+            int distinctB = countDistinctWords(b);
+
+            if (distinctA != distinctB) {
+                return Integer.compare(distinctB, distinctA);
+            }
+
+            if (a.length() != b.length()) {
+                return Integer.compare(b.length(), a.length());
+            }
+
+            return a.compareTo(b);
+        });
+
+        System.out.println("Result:");
+        for (String s : strings) {
+            System.out.println(s);
+        }
+    }
+
+    public static int countDistinctWords(String s) {
+        String[] words = s.toLowerCase().split("\\s+");
+        Set<String> unique = new HashSet<>(Arrays.asList(words));
+        return unique.size();
+    }
+
+
+//  Level 4, 4.8  Write a program that takes a list of integers as input and returns the smallest positive integer that cannot be represented as the sum of any subset of the list, with the additional constraint that no subset can contain any consecutive integers.
+
+    public static void inputAndPrintSmallestMissingSum(Scanner scanner) {
+        System.out.print("Nhập số lượng phần tử: ");
+        int n = scanner.nextInt();
+        int[] nums = new int[n];
+        System.out.println("Nhập các phần tử:");
+        for (int i = 0; i < n; i++) {
+            nums[i] = scanner.nextInt();
+        }
+
+        int result = findSmallestMissing(nums);
+        System.out.println(result);
+    }
+
+    public static int findSmallestMissing(int[] nums) {
+        Arrays.sort(nums);
+        TreeSet<Integer> sums = new TreeSet<>();
+        sums.add(0);
+
+        for (int num : nums) {
+            Set<Integer> newSums = new HashSet<>();
+            for (int sum : sums) {
+                if (!sums.contains(sum + num - 1) && !sums.contains(sum + num + 1)) {
+                    newSums.add(sum + num);
+                }
+            }
+            sums.addAll(newSums);
+        }
+
+        int result = 1;
+        while (sums.contains(result)) result++;
+        return result;
+    }
+
 }
+
