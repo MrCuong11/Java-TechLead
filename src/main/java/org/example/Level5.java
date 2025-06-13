@@ -27,7 +27,37 @@ public class Level5 {
 //        int[] uniqueNumbers = uniq(numbers);
 //        System.out.println("Mảng sau: " + Arrays.toString(uniqueNumbers));
 
-        
+
+
+
+        List<Map<String, Integer>> input = new ArrayList<>();
+
+        Map<String, Integer> obj1 = new HashMap<>();
+        obj1.put("x", 1);
+        obj1.put("y", 2);
+
+        Map<String, Integer> obj2 = new HashMap<>();
+        obj2.put("x", 2);
+        obj2.put("y", 1);
+
+        Map<String, Integer> obj3 = new HashMap<>();
+        obj3.put("y", 2);
+        obj3.put("x", 1);
+
+        input.add(obj1);
+        input.add(obj2);
+        input.add(obj3);
+
+        List<Map<String, Integer>> result = uniq(input);
+
+        for (Map<String, Integer> map : result) {
+            System.out.println(map);
+        }
+
+
+
+
+
 
         scanner.close();
     }
@@ -95,5 +125,24 @@ public class Level5 {
             result[i++] = num;
         }
         return result;
+    }
+
+    // 5.4
+    public static List<Map<String, Integer>> uniq(List<Map<String, Integer>> input) {
+        Set<String> seen = new HashSet<>();
+        List<Map<String, Integer>> result = new ArrayList<>();
+
+        for (Map<String, Integer> obj : input) {
+            String normalized = normalize(obj);
+            if (!seen.contains(normalized)) {
+                seen.add(normalized);
+                result.add(obj);
+            }
+        }
+
+        return result;
+    }
+    private static String normalize(Map<String, Integer> map) {
+        return new TreeMap<>(map).toString();
     }
 }
