@@ -1,8 +1,6 @@
 package org.example;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class CollectionFrameWork2 {
     public static void main(String[] args) {
@@ -30,10 +28,23 @@ public class CollectionFrameWork2 {
 
 
 
-        String text = inputText(scanner);
-        String[] words = splitWords(text);
-        HashMap<String, Integer> wordCount = countWords(words);
-        displayResult(wordCount);
+//        String text = inputText(scanner);
+//        String[] words = splitWords(text);
+//        HashMap<String, Integer> wordCount = countWords(words);
+//        displayResult(wordCount);
+
+
+
+
+
+
+
+        System.out.print("Nhập số lượng sinh viên: ");
+        int n = scanner.nextInt();
+
+        List<Double> scores = inputScores(scanner, n);
+        HashMap<String, Integer> stats = calculateDistribution(scores);
+        displayStats(stats);
 
         scanner.close();
     }
@@ -107,5 +118,39 @@ public class CollectionFrameWork2 {
 
 
     // bai 10
+    public static List<Double> inputScores(Scanner sc, int n) {
+        List<Double> scores = new ArrayList<>();
+        System.out.println("Nhập điểm:");
+        for (int i = 0; i < n; i++) {
+            scores.add(sc.nextDouble());
+        }
+        return scores;
+    }
+
+    public static HashMap<String, Integer> calculateDistribution(List<Double> scores) {
+        HashMap<String, Integer> stats = new HashMap<>();
+        stats.put("Cao", 0);
+        stats.put("Trung bình", 0);
+        stats.put("Trượt", 0);
+
+        for (double score : scores) {
+            if (score >= 8.0) {
+                stats.put("Cao", stats.get("Cao") + 1);
+            } else if (score >= 5.0) {
+                stats.put("Trung bình", stats.get("Trung bình") + 1);
+            } else {
+                stats.put("Trượt", stats.get("Trượt") + 1);
+            }
+        }
+
+        return stats;
+    }
+
+    public static void displayStats(HashMap<String, Integer> stats) {
+        System.out.println("\nPhân phối điểm:");
+        for (String key : stats.keySet()) {
+            System.out.println(key + ": " + stats.get(key));
+        }
+    }
 
 }
