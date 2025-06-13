@@ -124,11 +124,23 @@ public class Level5 {
 
 
 
-        Map<String, String> params = Map.of("name", "Jonny");
+//        Map<String, String> params = Map.of("name", "Jonny");
+//
+//        generateFileFromTemplate("C:\\Users\\NGUYEN MANH CUONG\\Downloads\\template.txt",
+//                               "C:\\Users\\NGUYEN MANH CUONG\\Downloads\\output.txt",
+//                               params);
 
-        generateFileFromTemplate("C:\\Users\\NGUYEN MANH CUONG\\Downloads\\template.txt", 
-                               "C:\\Users\\NGUYEN MANH CUONG\\Downloads\\output.txt", 
+
+
+        Map<String, String> params = new HashMap<>();
+        params.put("title", "Search of skill");
+        params.put("pageTitle", "Home page");
+        params.put("content", "asdaksd aida jsdia jsd asod sdjasdoa.");
+
+        generateFileFromTemplate("C:\\Users\\NGUYEN MANH CUONG\\Downloads\\template.html",
+                               "C:\\Users\\NGUYEN MANH CUONG\\Downloads\\output.html",
                                params);
+
 
         scanner.close();
     }
