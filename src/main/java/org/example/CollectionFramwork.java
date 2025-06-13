@@ -1,9 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Scanner;
+import java.util.*;
 
 public class CollectionFramwork {
     public static void main(String[] args) {
@@ -11,6 +8,7 @@ public class CollectionFramwork {
         Scanner scanner = new Scanner(System.in);
 
         HashSet<String> countries = new HashSet<>();
+        HashMap<String, Integer> people = new HashMap<>();
 
 //        ArrayList
 //        numbers = inputNumbers(scanner);
@@ -29,6 +27,14 @@ public class CollectionFramwork {
 //        removeCountry(countries, scanner);
 //        countCountries(countries);
 
+
+
+//        HashMap
+//        addPeople(people, scanner);
+//        displayNames(people);
+//        findAgeByName(people, scanner);
+//        removePerson(people, scanner);
+//        checkPersonExists(people, scanner);
 
 
         scanner.close();
@@ -132,6 +138,64 @@ public class CollectionFramwork {
 
 
 
+//Bai 3
+// Thêm người vào HashMap
+    public static void addPeople(HashMap<String, Integer> people, Scanner scanner) {
+        System.out.print("Nhập số người cần thêm: ");
+        int n = scanner.nextInt();
+        scanner.nextLine();
+
+        for (int i = 0; i < n; i++) {
+            System.out.print("Nhập tên người thứ " + (i + 1) + ": ");
+            String name = scanner.nextLine();
+            System.out.print("Nhập tuổi của " + name + ": ");
+            int age = scanner.nextInt();
+            scanner.nextLine();
+
+            people.put(name, age);
+        }
+    }
+
+    // Hiển thị tên tất cả mọi người
+    public static void displayNames(HashMap<String, Integer> people) {
+        System.out.println("\nDanh sách tên người:");
+        for (String name : people.keySet()) {
+            System.out.println(" " + name);
+        }
+    }
+
+    // Tìm tuổi theo tên
+    public static void findAgeByName(HashMap<String, Integer> people, Scanner scanner) {
+        System.out.print("\nNhập tên người: ");
+        String name = scanner.nextLine();
+            if (people.containsKey(name)) {
+                System.out.println(name + " có tuổi là: " + people.get(name));
+            } else {
+                System.out.println("Không tìm thấy " + name);
+            }
+    }
+
+    // Xóa một người
+    public static void removePerson(HashMap<String, Integer> people, Scanner scanner) {
+        System.out.print("\nNhập tên người để xóa: ");
+        String name = scanner.nextLine();
+        if (people.remove(name) != null) {
+            System.out.println("Đã xóa " + name + " khỏi danh sách.");
+        } else {
+            System.out.println("Không tìm thấy " + name + " để xóa.");
+        }
+    }
+
+    // Kiểm tra người có tồn tại không
+    public static void checkPersonExists(HashMap<String, Integer> people, Scanner scanner) {
+        System.out.print("\nNhập tên người để kiểm tra: ");
+        String name = scanner.nextLine();
+        if (people.containsKey(name)) {
+            System.out.println(name + " có trong danh sách.");
+        } else {
+            System.out.println(name + " không có trong danh sách.");
+        }
+    }
 
 
 }
