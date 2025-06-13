@@ -30,30 +30,44 @@ public class Level5 {
 
 
 
-        List<Map<String, Integer>> input = new ArrayList<>();
+//        List<Map<String, Integer>> input = new ArrayList<>();
+//
+//        Map<String, Integer> obj1 = new HashMap<>();
+//        obj1.put("x", 1);
+//        obj1.put("y", 2);
+//
+//        Map<String, Integer> obj2 = new HashMap<>();
+//        obj2.put("x", 2);
+//        obj2.put("y", 1);
+//
+//        Map<String, Integer> obj3 = new HashMap<>();
+//        obj3.put("y", 2);
+//        obj3.put("x", 1);
+//
+//        input.add(obj1);
+//        input.add(obj2);
+//        input.add(obj3);
+//
+//        List<Map<String, Integer>> result = uniq(input);
+//
+//        for (Map<String, Integer> map : result) {
+//            System.out.println(map);
+//        }
 
-        Map<String, Integer> obj1 = new HashMap<>();
-        obj1.put("x", 1);
-        obj1.put("y", 2);
 
-        Map<String, Integer> obj2 = new HashMap<>();
-        obj2.put("x", 2);
-        obj2.put("y", 1);
 
-        Map<String, Integer> obj3 = new HashMap<>();
-        obj3.put("y", 2);
-        obj3.put("x", 1);
+        List<Map<String, Integer>> collect = new ArrayList<>();
+        collect.add(Map.of("a", 1, "b", 2));
+        collect.add(Map.of("a", 1, "b", 3));
+        collect.add(Map.of("a", 2, "b", 2));
 
-        input.add(obj1);
-        input.add(obj2);
-        input.add(obj3);
+        System.out.println("Group by 'a':");
+        Map<Integer, List<Map<String, Integer>>> groupByA = groupBy(collect, "a");
+        System.out.println(groupByA);
 
-        List<Map<String, Integer>> result = uniq(input);
-
-        for (Map<String, Integer> map : result) {
-            System.out.println(map);
-        }
-
+        System.out.println("\nGroup by 'b':");
+        Map<Integer, List<Map<String, Integer>>> groupByB = groupBy(collect, "b");
+        System.out.println(groupByB);
 
 
 
@@ -145,4 +159,19 @@ public class Level5 {
     private static String normalize(Map<String, Integer> map) {
         return new TreeMap<>(map).toString();
     }
+
+
+
+//    5.5
+    public static Map<Integer, List<Map<String, Integer>>> groupBy(List<Map<String, Integer>> input, String field) {
+        Map<Integer, List<Map<String, Integer>>> grouped = new HashMap<>();
+
+        for (Map<String, Integer> obj : input) {
+            Integer key = obj.get(field);
+            grouped.computeIfAbsent(key, k -> new ArrayList<>()).add(obj);
+        }
+
+        return grouped;
+    }
+
 }
