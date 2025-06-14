@@ -278,4 +278,13 @@ public class CollectionFrameWork2 {
         result.retainAll(set2); // giữ lại các phần tử có trong cả hai tập
         return result;
     }
+
+
+
+    // bai 15
+    public static Set<Integer> findUnion(Set<Integer> set1, Set<Integer> set2) {
+        Set<Integer> union = new HashSet<>(set1);
+        union.addAll(set2); // Gộp thêm các phần tử từ set2
+        return union;
+    }
 }
