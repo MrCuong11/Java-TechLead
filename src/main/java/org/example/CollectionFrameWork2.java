@@ -269,4 +269,13 @@ public class CollectionFrameWork2 {
             }
         }
     }
+
+
+    // bai 14
+    // Tìm phần tử chung (giao) giữa hai tập hợp
+    public static HashSet<Integer> findIntersection(HashSet<Integer> set1, HashSet<Integer> set2) {
+        HashSet<Integer> result = new HashSet<>(set1);
+        result.retainAll(set2); // giữ lại các phần tử có trong cả hai tập
+        return result;
+    }
 }
