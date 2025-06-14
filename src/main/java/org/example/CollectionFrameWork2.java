@@ -245,4 +245,28 @@ public class CollectionFrameWork2 {
         }
     }
 
+
+    // Bai 13
+    // Tìm các phần tử trùng lặp
+    public static Set<Integer> findDuplicates(int[] arr) {
+        Set<Integer> seen = new HashSet<>();
+        Set<Integer> duplicates = new HashSet<>();
+
+        for (int num : arr) {
+            if (!seen.add(num)) {
+                duplicates.add(num);
+            }
+        }
+        return duplicates;
+    }
+    public static void displayDuplicates(Set<Integer> duplicates) {
+        if (duplicates.isEmpty()) {
+            System.out.println("Không có phần tử trùng lặp.");
+        } else {
+            System.out.println("Các phần tử trùng lặp:");
+            for (int num : duplicates) {
+                System.out.println(num);
+            }
+        }
+    }
 }
