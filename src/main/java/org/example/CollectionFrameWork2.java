@@ -39,12 +39,58 @@ public class CollectionFrameWork2 {
 
 
 
-        System.out.print("Nhập số lượng sinh viên: ");
-        int n = scanner.nextInt();
+//        System.out.print("Nhập số lượng sinh viên: ");
+//        int n = scanner.nextInt();
+//
+//        List<Double> scores = inputScores(scanner, n);
+//        HashMap<String, Integer> stats = calculateDistribution(scores);
+//        displayStats(stats);
 
-        List<Double> scores = inputScores(scanner, n);
-        HashMap<String, Integer> stats = calculateDistribution(scores);
-        displayStats(stats);
+
+
+
+
+
+
+//        HashMap<String, String> dictionary = new HashMap<>();
+//
+//        addWord(dictionary, scanner);
+//        lookupWord(dictionary, scanner);
+
+
+
+
+
+
+//        List<Map<String, Object>> products = new ArrayList<>();
+//
+//        // Thêm sản phẩm
+//        products.add(createProduct("Bánh", "P001", 15000.0, "2024-06-01"));
+//        products.add(createProduct("Nước", "P002", 10000.0, "2024-05-20"));
+//        products.add(createProduct("Kẹo", "P003", 10000.0, "2024-06-05"));
+//        products.add(createProduct("Sữa", "P004", 20000.0, "2024-04-10"));
+//
+//        // Sắp xếp theo tên
+//        System.out.println("Sắp xếp theo tên:");
+//        products.sort(Comparator.comparing(p -> (String) p.get("name")));
+//        printProducts(products);
+//
+//        // Sắp xếp theo giá
+//        System.out.println(" Sắp xếp theo giá:");
+//        products.sort(Comparator.comparing(p -> (Double) p.get("price")));
+//        printProducts(products);
+//
+//        // Sắp xếp theo ngày sản xuất
+//        System.out.println(" Sắp xếp theo ngày sản xuất:");
+//        products.sort(Comparator.comparing(p -> (String) p.get("date")));
+//        printProducts(products);
+//
+//        // Sắp xếp theo giá rồi ngày
+//        System.out.println(" Sắp xếp theo giá rồi ngày:");
+//        products.sort(Comparator
+//                .comparing((Map<String, Object> p) -> (Double) p.get("price"))
+//                .thenComparing(p -> (String) p.get("date")));
+//        printProducts(products);
 
         scanner.close();
     }
@@ -150,6 +196,52 @@ public class CollectionFrameWork2 {
         System.out.println("\nPhân phối điểm:");
         for (String key : stats.keySet()) {
             System.out.println(key + ": " + stats.get(key));
+        }
+    }
+
+
+
+
+
+
+
+    // Bai 11
+    public static void addWord(HashMap<String, String> dict, Scanner sc) {
+        System.out.print("Nhập từ: ");
+        String word = sc.nextLine();
+        System.out.print("Nhập định nghĩa: ");
+        String definition = sc.nextLine();
+        dict.put(word, definition);
+    }
+
+    public static void lookupWord(HashMap<String, String> dict, Scanner sc) {
+        System.out.print("Nhập từ cần tra: ");
+        String word = sc.nextLine();
+        if (dict.containsKey(word)) {
+            System.out.println("Định nghĩa: " + dict.get(word));
+        } else {
+            System.out.println("Không tìm thấy từ.");
+        }
+    }
+
+
+
+    //bai 12
+    // Tạo sản phẩm dưới dạng Map
+    public static Map<String, Object> createProduct(String name, String code, double price, String date) {
+        Map<String, Object> product = new HashMap<>();
+        product.put("name", name);
+        product.put("code", code);
+        product.put("price", price);
+        product.put("date", date);
+        return product;
+    }
+
+    // In sản phẩm
+    public static void printProducts(List<Map<String, Object>> products) {
+        for (Map<String, Object> p : products) {
+            System.out.println(p.get("name") + " - " + p.get("code") + " - " +
+                    p.get("price") + "đ - " + p.get("date"));
         }
     }
 
