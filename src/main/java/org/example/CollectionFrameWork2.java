@@ -287,4 +287,21 @@ public class CollectionFrameWork2 {
         union.addAll(set2); // Gộp thêm các phần tử từ set2
         return union;
     }
+
+
+
+
+    // bai 16
+    public static void findMinMax(Set<Integer> set) {
+        if (set.isEmpty()) {
+            System.out.println("Tập hợp rỗng.");
+            return;
+        }
+
+        int min = Collections.min(set);
+        int max = Collections.max(set);
+    }
+
+    //Bai 17: set tu loai bo ki tu trung
+    //Bai 18: set.size()
 }
