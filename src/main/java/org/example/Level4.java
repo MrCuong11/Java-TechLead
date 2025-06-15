@@ -63,6 +63,10 @@ public class Level4 {
     public static void inputAndPrintPairCountWithTarget(Scanner scanner) {
         System.out.print("Nhập số phần tử: ");
         int n = scanner.nextInt();
+        if (n <= 0) {
+            System.out.println("Mảng phải có ít nhất 1 phần tử.");
+            return;
+        }
 
         int[] arr = new int[n];
         System.out.println("Nhập các phần tử:");
@@ -70,20 +74,27 @@ public class Level4 {
             arr[i] = scanner.nextInt();
         }
 
-        System.out.print("target: ");
+        System.out.print("Nhập target: ");
         int target = scanner.nextInt();
 
-        System.out.println("Kết quả: " + demCapSo(arr, target));
+        int count = countSubsequencesWithSum(arr, target);
+        System.out.println("Số dãy con có tổng bằng " + target + ": " + count);
     }
 
-    public static int demCapSo(int[] arr, int target) {
-        int count = 0;
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = i + 1; j < arr.length; j++) {
-                if (arr[i] + arr[j] == target) count++;
-            }
-        }
-        return count;
+    // Đệ quy đếm số dãy con có tổng bằng target
+    public static int countSubsequencesWithSum(int[] arr, int target) {
+        return count(arr, target, 0);
+    }
+
+    private static int count(int[] arr, int target, int index) {
+        if (target == 0) return 1;
+        if (index == arr.length) return 0;
+
+        // Chạy sâu vào nhánh include, sau đó sẽ chạy nhánh exclude
+        int include = count(arr, target - arr[index], index + 1);
+        int exclude = count(arr, target, index + 1);
+
+        return include + exclude;
     }
 
 //    Level 4, 4.3: Write a program that takes a list of strings as input and returns the length of the longest substring that appears in every string in the list.
