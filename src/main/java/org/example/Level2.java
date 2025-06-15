@@ -38,6 +38,11 @@ public class Level2 {
         int count = scanner.nextInt();
         scanner.nextLine();
 
+        if (count <= 0) {
+            System.out.println("Invalid number of words.");
+            return;
+        }
+
         String[] words = new String[count];
 
         for (int i = 0; i < count; i++) {
