@@ -274,8 +274,9 @@ public class Level5 {
 //    5.8
 
     public static void switchOrder(List<Map<String, Integer>> arr, int targetId, int newOrder) {
-//        sort tăng dần theo order
+        // Sort theo order
         arr.sort(Comparator.comparingInt(o -> o.get("order")));
+
 
         Map<String, Integer> target = null;
         for (Map<String, Integer> obj : arr) {
@@ -285,14 +286,22 @@ public class Level5 {
             }
         }
 
-        if (target == null) return;
+        if (target == null) {
+            System.out.println("Không tìm thấy phần tử có id = " + targetId);
+            return;
+        }
 
+        if (newOrder < 0) newOrder = 0;
+        if (newOrder >= arr.size()) newOrder = arr.size() - 1;
 
+// đúng vị trí
+        if (target.get("order") == newOrder) return;
+
+        // Xoá target khỏi danh sách
         arr.remove(target);
-        // adding for newOrder
         arr.add(newOrder, target);
 
-//        re update position for order
+        // Cập nhật lại giá trị order
         for (int i = 0; i < arr.size(); i++) {
             arr.get(i).put("order", i);
         }
