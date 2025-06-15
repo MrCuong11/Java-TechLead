@@ -160,6 +160,9 @@ public class Level4 {
         dp[0] = arr[0];
         dp[1] = Math.max(arr[0], arr[1]);
 
+        // nếu không chọn Ai, thì lấy tổng liền trước nó
+        // Nếu chọn Ai, thì lấy tổng trước cái liền trước, rồi cộng với cái hiện tại
+        //max 2 cái đó thì ta có tổng lớn nhất đến hiện tại
         for (int i = 2; i < arr.length; i++) {
             dp[i] = Math.max(dp[i - 1], dp[i - 2] + arr[i]);
         }
