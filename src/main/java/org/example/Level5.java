@@ -94,15 +94,15 @@ public class Level5 {
 
 
 
-//        List<Map<String, Integer>> arr = new ArrayList<>(Arrays.asList(
-//                new HashMap<>(Map.of("id", 10, "order", 0)),
-//                new HashMap<>(Map.of("id", 12, "order", 1)),
-//                new HashMap<>(Map.of("id", 9,  "order", 2)),
-//                new HashMap<>(Map.of("id", 11, "order", 3))
-//        ));
-//
-//        switchOrder(arr, 9, 1);
-//        arr.forEach(System.out::println);
+        List<Map<String, Integer>> arr = new ArrayList<>(Arrays.asList(
+                new HashMap<>(Map.of("id", 10, "order", 0)),
+                new HashMap<>(Map.of("id", 12, "order", 1)),
+                new HashMap<>(Map.of("id", 9,  "order", 2)),
+                new HashMap<>(Map.of("id", 11, "order", 3))
+        ));
+
+        switchOrder(arr, 9, 1);
+        arr.forEach(System.out::println);
 
 
 
