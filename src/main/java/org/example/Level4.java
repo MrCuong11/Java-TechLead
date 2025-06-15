@@ -153,18 +153,18 @@ public class Level4 {
     }
 
     public static int timTongLonNhat(int[] arr) {
-        int tongMax = 0;
-        for (int i = 0; i < arr.length; i++) {
-            int tong = arr[i];
-            tongMax = Math.max(tongMax, tong);
+        if (arr.length == 0) return 0;
+        if (arr.length == 1) return arr[0];
 
-            for (int j = i + 2; j < arr.length; j++) {
-                tong += arr[j];
-                tongMax = Math.max(tongMax, tong);
-                j++;
-            }
+        int[] dp = new int[arr.length];
+        dp[0] = arr[0];
+        dp[1] = Math.max(arr[0], arr[1]);
+
+        for (int i = 2; i < arr.length; i++) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + arr[i]);
         }
-        return tongMax;
+
+        return dp[arr.length - 1];
     }
 
 //    Level 4, 4.5: Write a program that takes a list of strings as input and returns the length of the longest common substring of the strings.
