@@ -324,6 +324,11 @@ public class Level3 {
         int n = scanner.nextInt();
         scanner.nextLine();
 
+        if (n <= 0) {
+            System.out.println("Số lượng chuỗi phải lớn hơn 0.");
+            return;
+        }
+
         for (int i = 0; i < n; i++) {
             System.out.print("Nhập chuỗi " + (i + 1) + ": ");
             danhSach.add(scanner.nextLine());
@@ -348,7 +353,7 @@ public class Level3 {
     public static int demKyTuKhacNhau(String str) {
         Set<Character> kyTuKhacNhau = new HashSet<>();
 
-        for (char c : str.toCharArray()) {
+        for (char c : str.trim().toCharArray()) {
             kyTuKhacNhau.add(c);
         }
 
